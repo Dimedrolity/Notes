@@ -29,9 +29,9 @@ namespace Notes.DTO
                 return $"Вчера, {dateTime:H:mm}";
 
             if (dateTime.Year == DateTime.Now.Year)
-                return $"{dateTime:d} {dateTime:MMM} {dateTime:H:mm}";
+                return $"{dateTime.Day} {dateTime:MMM} {dateTime:H:mm}";
 
-            return $"{dateTime:d} {dateTime:MMM} {dateTime:yyyy} {dateTime:H:mm}";
+            return $"{dateTime.Day} {dateTime:MMM} {dateTime.Year} {dateTime:H:mm}";
         }
     }
 }
