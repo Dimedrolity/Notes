@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.AspNetCore.Mvc;
@@ -54,7 +54,7 @@ namespace Notes.Controllers
             var title = string.IsNullOrEmpty(noteFromClient.Title) ? null : noteFromClient.Title;
             noteFromDb.Title = title;
             noteFromDb.Content = noteFromClient.Content;
-            noteFromDb.DateOfLastChange = DateTime.Now;
+            noteFromDb.UpdateDateOfLastChange();
 
             _db.SaveChanges();
         }
@@ -74,7 +74,7 @@ namespace Notes.Controllers
         public IEnumerable<NoteDto> GetBySubstring()
         {
             Console.WriteLine("обрабатываю HttpGet-запрос api/notes/contains с пустой строкой");
-        
+
             return _db.GetAllNotesSortedByDateOfLastChange();
         }
 

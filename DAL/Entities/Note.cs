@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 
 namespace Notes.DAL.Entities
 {
@@ -7,7 +7,10 @@ namespace Notes.DAL.Entities
         public int Id { get; set; }
         public string? Title { get; set; }
         public string Content { get; set; } = null!;
-        public DateTime DateOfLastChange { get; set; } = DateTime.Now;
+        
+        private TimeZoneInfo ekaterinburgZone = TimeZoneInfo.FindSystemTimeZoneById("Ekaterinburg Standard Time");
+        public DateTime DateOfLastChange { get; set; }
+
 
         public Note()
         {
@@ -17,6 +20,19 @@ namespace Notes.DAL.Entities
         {
             Title = title;
             Content = content;
+            DateOfLastChange = GetDateTimeNowInEkaterinburg();
+        }
+
+        private DateTime GetDateTimeNowInEkaterinburg()
+        {
+            var utcTime = DateTime.Now.ToUniversalTime();
+            var ekaterinburgTime = TimeZoneInfo.ConvertTime(utcTime, ekaterinburgZone);
+            return ekaterinburgTime;
+        }
+        
+        public void UpdateDateOfLastChange()
+        {
+            DateOfLastChange = GetDateTimeNowInEkaterinburg();
         }
     }
 }
